@@ -88,7 +88,7 @@
      其余网格（四件小事）                                  → 1100px（默认 .wrap） */
   .wrap{max-width:1100px; margin:0 auto; padding:0 22px}
   .hero .wrap,.log.wrap,.faq.wrap{max-width:980px}
-  .apps.wrap{max-width:1200px}
+  .apps.wrap{max-width:1280px}
 
   /* ---------- reveal on scroll ---------- */
   .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s cubic-bezier(.28,.11,.32,1), transform .8s cubic-bezier(.28,.11,.32,1)}
@@ -166,7 +166,7 @@
   .pill-ghost:hover{border-color:var(--ink-strong); text-decoration:none}
   .pill-sm{font-size:14px; padding:9px 22px}
 
-  /* ---------- 软件双列瓷砖 ---------- */
+  /* ---------- 软件瓷砖（桌面三列 / 平板两列 / 手机单列） ---------- */
   .apps{padding:10px 0 26px}
   .app-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:stretch}
   .tile{
@@ -223,7 +223,25 @@
   .tile-soon .ctas{flex-direction:row; justify-content:center; margin-top:0}
   .tile-soon .ctas .pill{width:auto}
   .tile-soon .soon-tip{font-size:12px; color:var(--ink-3); margin-top:18px}
-  .apps-soon{padding-top:0}
+
+  /* ---------- 桌面三列：三张卡片并排一行 ---------- */
+  @media (min-width:1100px){
+    .app-grid{grid-template-columns:repeat(3,1fr); gap:18px}
+    .tile{padding:38px 28px 34px; border-radius:26px}
+    .tile h2{font-size:26px}
+    .tile .tile-sub{font-size:14.5px; max-width:340px}
+    .tile-shot{height:230px; margin:22px 0 20px; border-radius:16px}
+    .feats{grid-template-columns:1fr; gap:8px; max-width:none; margin-bottom:22px}
+    .feats li{font-size:13px}
+    .stats{margin:18px 0; gap:11px}
+    .tile-note,.mirror{font-size:12px; line-height:1.6}
+    /* 预留位不再通栏，与两张软件卡并排；按钮下压，与另外两张卡底部对齐 */
+    .tile-soon{grid-column:auto; padding:38px 28px 34px}
+    .tile-soon h2{font-size:23px}
+    .tile-soon .tile-sub{max-width:340px; margin-bottom:20px}
+    .tile-soon .soon-ic{width:46px; height:46px; margin-bottom:16px}
+    .tile-soon .ctas{margin-top:auto}
+  }
 
   /* ---------- 更新日志（苹果式时间线） ---------- */
   .log{padding:96px 0 20px; text-align:center}
@@ -394,7 +412,7 @@
     </div>
   </section>
 
-  <!-- ================= APPS（两列瓷砖） ================= -->
+  <!-- ================= APPS（桌面三列瓷砖） ================= -->
   <section class="apps wrap">
     <div class="app-grid">
 
@@ -454,16 +472,11 @@
         <p class="tile-foot">Windows 10 / 11 · 64 位 · 免安装 · MIT 开源 · 完全免费</p>
       </article>
 
-    </div>
-  </section>
-
-  <!-- ================= 第三款软件 · 预留位 =================
-       以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面两张卡片相同的结构即可：
-       eyebrow（软件名 · 版本号）→ h2（一句话定位）→ tile-sub（简介）→ tile-shot（截图）
-       → feats（功能清单）→ ctas（下载按钮）→ tile-note（安装方式）→ tile-foot（运行环境）
-  -->
-  <section class="apps wrap apps-soon">
-    <div class="app-grid">
+      <!-- ======== 第三款软件 · 预留位 ========
+           以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面两张卡片相同的结构即可：
+           eyebrow（软件名 · 版本号）→ h2（一句话定位）→ tile-sub（简介）→ tile-shot（截图）
+           → feats（功能清单）→ ctas（下载按钮）→ tile-note（安装方式）→ tile-foot（运行环境）
+      -->
       <article class="tile tile-soon reveal" id="soon">
         <div class="soon-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
@@ -476,6 +489,7 @@
         </div>
         <p class="soon-tip">同样免费、免安装、不联网、开源</p>
       </article>
+
     </div>
   </section>
 
