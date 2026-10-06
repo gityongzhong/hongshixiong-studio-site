@@ -30,13 +30,12 @@
 <meta itemprop="image" content="https://hongshixiongstudio.cn/assets/og-share.png">
 <meta name="theme-color" content="#000000">
 <script>
-/* 深浅主题：优先用户手动选择 → 跟随系统 → 默认深色；渲染前执行避免闪白 */
+/* 深浅主题：优先用户手动选择 → 默认深色（不跟随系统设置）；渲染前执行避免闪白 */
 (function(){
   var t='dark';
   try{
     var s=localStorage.getItem('theme');
     if(s==='light'||s==='dark') t=s;
-    else if(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches) t='light';
   }catch(e){}
   document.documentElement.setAttribute('data-theme',t);
   var m=document.querySelector('meta[name="theme-color"]');
@@ -836,15 +835,7 @@
       apply(next);
       try{localStorage.setItem('theme',next)}catch(e){}
     });
-    // 用户未手动选择过时，跟随系统深浅变化
-    if(window.matchMedia){
-      try{
-        matchMedia('(prefers-color-scheme: light)').addEventListener('change',function(e){
-          var saved=null; try{saved=localStorage.getItem('theme')}catch(err){}
-          if(saved!=='light'&&saved!=='dark') apply(e.matches?'light':'dark');
-        });
-      }catch(e){}
-    }
+    // 站点默认深色，不跟随系统深浅变化（用户手动切过则以手动选择为准）
   })();
 
   /* ---------- 公众号二维码：有图显示图，无图显示名称占位 ---------- */
