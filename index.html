@@ -224,6 +224,29 @@
   .tile-soon .ctas .pill{width:auto}
   .tile-soon .soon-tip{font-size:12px; color:var(--ink-3); margin-top:18px}
 
+  /* ---------- B 站视频 ---------- */
+  .videos{padding:96px 0 20px; text-align:center}
+  .videos .videos-sub{max-width:560px; margin:14px auto 0; font-size:16px; color:var(--ink-2)}
+  .video-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; text-align:left}
+  .video-card{
+    display:flex; flex-direction:column; overflow:hidden; text-decoration:none;
+    background:var(--tile); border-radius:24px;
+    transition:transform .4s cubic-bezier(.28,.11,.32,1);
+  }
+  .video-card:hover{transform:translateY(-4px)}
+  .vthumb{position:relative; aspect-ratio:16/9; overflow:hidden; background:var(--soft)}
+  .vthumb img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s cubic-bezier(.28,.11,.32,1)}
+  .video-card:hover .vthumb img{transform:scale(1.04)}
+  .vdur{
+    position:absolute; right:10px; bottom:10px; padding:2px 7px; border-radius:6px;
+    background:rgba(0,0,0,.78); color:#fff; font-size:12px; font-variant-numeric:tabular-nums;
+  }
+  .vmeta{padding:18px 20px 22px; display:flex; flex-direction:column; gap:10px; flex:1}
+  .vmeta h3{font-size:15px; font-weight:600; line-height:1.45; color:var(--ink)}
+  .vstat{display:flex; align-items:center; gap:6px; margin-top:auto; font-size:12.5px; color:var(--ink-3)}
+  .vstat svg{flex:none}
+  .videos-more{display:inline-block; margin-top:34px; font-size:15px}
+
   /* ---------- 桌面三列：三张卡片并排一行 ---------- */
   @media (min-width:1100px){
     .app-grid{grid-template-columns:repeat(3,1fr); gap:18px}
@@ -241,6 +264,7 @@
     .tile-soon .tile-sub{max-width:340px; margin-bottom:20px}
     .tile-soon .soon-ic{width:46px; height:46px; margin-bottom:16px}
     .tile-soon .ctas{margin-top:auto}
+    .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
 
   /* ---------- 更新日志（苹果式时间线） ---------- */
@@ -328,6 +352,7 @@
   @media (max-width:920px){
     .app-grid{grid-template-columns:1fr}
     .log-grid{grid-template-columns:1fr}
+    .video-grid{grid-template-columns:1fr}
     .hero{padding:88px 0 68px}
     .tile{padding:38px 28px 32px}
   }
@@ -343,6 +368,7 @@
     .trust span{font-size:12.5px}
     .eyebrow{font-size:14px}
     .app-grid{gap:14px}
+    .video-grid{gap:14px}
     .tile{padding:32px 22px 28px; border-radius:24px}
     .tile .tile-sub{font-size:14.5px}
     .tile-shot{height:200px; margin:20px 0 18px; border-radius:14px}
@@ -519,6 +545,59 @@
         <p>源码托管于 GitHub，MIT 许可，欢迎共建</p>
       </div>
     </div>
+  </section>
+
+  <!-- ================= B 站视频 ================= -->
+  <section class="videos wrap" id="videos">
+    <div class="eyebrow reveal">视频教程</div>
+    <h2 class="big reveal">在 B 站，我把用法讲给你听。</h2>
+    <p class="videos-sub reveal">软件安装、使用技巧，视频里说得更清楚。</p>
+    <div class="video-grid">
+
+      <a class="video-card reveal" href="https://www.bilibili.com/video/BV1Td4y1971i" target="_blank" rel="noopener">
+        <div class="vthumb">
+          <img src="assets/bili-zotero.webp" alt="Zotero 文献管理软件推荐" loading="lazy" decoding="async" width="720" height="450">
+          <span class="vdur">7:15</span>
+        </div>
+        <div class="vmeta">
+          <h3>Zotero文献管理软件推荐|免费开源</h3>
+          <span class="vstat">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.6v16.8L19 12 5 3.6Z"/></svg>
+            2.4 万播放
+          </span>
+        </div>
+      </a>
+
+      <a class="video-card reveal" href="https://www.bilibili.com/video/BV1Rg411D78u" target="_blank" rel="noopener">
+        <div class="vthumb">
+          <img src="assets/bili-drawio.webp" alt="推荐一款绘制流程图软件 Draw.io" loading="lazy" decoding="async" width="720" height="450">
+          <span class="vdur">3:08</span>
+        </div>
+        <div class="vmeta">
+          <h3>推荐一款绘制流程图软件Draw.io</h3>
+          <span class="vstat">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.6v16.8L19 12 5 3.6Z"/></svg>
+            2.3 万播放
+          </span>
+        </div>
+      </a>
+
+      <a class="video-card reveal" href="https://www.bilibili.com/video/BV1CN4y1V77G" target="_blank" rel="noopener">
+        <div class="vthumb">
+          <img src="assets/bili-origin.webp" alt="Origin Pro2021 软件安装教程" loading="lazy" decoding="async" width="720" height="450">
+          <span class="vdur">5:29</span>
+        </div>
+        <div class="vmeta">
+          <h3>Origin Pro2021软件安装教程</h3>
+          <span class="vstat">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.6v16.8L19 12 5 3.6Z"/></svg>
+            1.3 万播放
+          </span>
+        </div>
+      </a>
+
+    </div>
+    <a class="videos-more" href="https://space.bilibili.com/307460554" target="_blank" rel="noopener">去 B 站主页看全部视频 →</a>
   </section>
 
   <!-- ================= 更新日志 ================= -->
