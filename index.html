@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小洪師兄 Studio · 免费好用的 Windows 效率工具</title>
 <meta name="description" content="独立开发的免费 Windows 桌面工具下载：WorkAid 文档批处理工具箱、流晷计时器会议倒计时。免安装、不联网、无广告、开源。">
-<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<link rel="icon" type="image/png" href="assets/logo-icon.png">
+<link rel="preconnect" href="https://api.github.com" crossorigin>
 <link rel="canonical" href="https://hongshixiongstudio.cn/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="小洪師兄 Studio">
@@ -70,7 +71,8 @@
     color-scheme:light;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+  [id]{scroll-margin-top:64px}
   body{
     font-family:"SF Pro SC","SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",sans-serif;
     background:var(--bg); color:var(--ink); line-height:1.55;
@@ -107,10 +109,12 @@
   .nav a:hover{color:var(--ink-strong); text-decoration:none}
   .nav a.gh{display:flex; align-items:center; gap:6px}
   .theme-btn{
+    position:relative;
     display:flex; align-items:center; justify-content:center;
-    width:30px; height:30px; border-radius:50%; border:none; cursor:pointer;
+    width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
     background:transparent; color:var(--nav-ink); transition:color .2s, background .2s;
   }
+  .theme-btn::after{content:""; position:absolute; inset:-7px}
   .theme-btn:hover{color:var(--ink-strong); background:rgba(128,128,128,.18)}
   html[data-theme="dark"] .theme-btn .ic-moon{display:none}
   html[data-theme="light"] .theme-btn .ic-sun{display:none}
@@ -301,12 +305,37 @@
   @media (max-width:640px){
     .val-grid{grid-template-columns:1fr 1fr}
     .feats{grid-template-columns:1fr}
-    .tile-shot{height:228px}
+    h1{font-size:clamp(31px,9.4vw,42px); margin-bottom:14px}
+    .hero{padding:72px 0 56px}
+    .hero p.sub{font-size:16.5px}
+    .hero .cta-row{gap:10px; margin-top:28px}
+    .hero .cta-row .pill{min-width:250px}
+    .trust{gap:10px 18px; margin-top:30px}
+    .trust span{font-size:12.5px}
+    .eyebrow{font-size:14px}
+    .app-grid{gap:14px}
+    .tile{padding:32px 22px 28px; border-radius:24px}
+    .tile .tile-sub{font-size:14.5px}
+    .tile-shot{height:200px; margin:20px 0 18px; border-radius:14px}
+    .feats li{font-size:13px}
+    .stats{margin:18px 0; gap:10px}
+    .pill{font-size:15.5px; padding:13px 24px}
+    .tile-note,.mirror{font-size:12.5px; line-height:1.65}
+    .val{padding:30px 22px; border-radius:24px}
+    .log-card{padding:26px 22px 24px; border-radius:24px}
+    .faq summary{font-size:16px; padding:18px 2px}
+    .faq .a{padding:0 8px 22px 2px; font-size:14.5px}
+    .nav a{padding:8px 0}
+    footer{padding:30px 0 calc(48px + env(safe-area-inset-bottom))}
+    footer .links{gap:12px 20px}
   }
   @media (max-width:480px){
     .val-grid{grid-template-columns:1fr}
-    .nav{gap:16px}
+    .nav{gap:14px}
     .nav .hide-m{display:none}
+    .wrap{padding:0 18px}
+    .tile{padding:30px 18px 26px}
+    .tile h2{font-size:23px}
   }
 </style>
 </head>
@@ -315,7 +344,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="回到顶部">
-      <img src="assets/logo.jpg" alt="小洪師兄 Studio LOGO" width="26" height="26" style="border-radius:6px; object-fit:cover">
+      <img src="assets/logo-icon.webp" alt="小洪師兄 Studio LOGO" width="26" height="26" style="border-radius:6px; object-fit:cover">
       小洪師兄 Studio
     </a>
     <nav class="nav">
@@ -363,7 +392,7 @@
         <div class="eyebrow">WorkAid · v3.1.0</div>
         <h2>一站式文档<br>批处理工具箱</h2>
         <p class="tile-sub">10 项常用功能，批量处理、拖拽即用。文件全程<b>本机处理、不联网</b>。</p>
-        <img class="tile-shot" src="assets/workaid-showcase.png" alt="WorkAid 界面展示" loading="lazy" style="object-position:center top">
+        <img class="tile-shot" src="assets/workaid-showcase.webp" alt="WorkAid 界面展示" loading="lazy" decoding="async" width="810" height="1080" style="object-position:center top">
         <ul class="feats">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>Word / PPT</b> 转 PDF</span></li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>PDF 转 Word</b>，免装 Office</span></li>
@@ -391,7 +420,7 @@
         <div class="eyebrow">流晷计时器 · v0.7.3</div>
         <h2>免安装会议<br>倒计时</h2>
         <p class="tile-sub">把时长设好放一边，剩下的交给它提醒。全程<b>视觉提示</b>，不响铃、不打断会议。</p>
-        <img class="tile-shot" src="assets/liugui-intro.png" alt="流晷计时器界面展示" loading="lazy">
+        <img class="tile-shot" src="assets/liugui-intro.webp" alt="流晷计时器界面展示" loading="lazy" decoding="async" width="1600" height="980">
         <ul class="feats">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>全屏投屏</b>，最后一排也看得清</span></li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>悬浮窗</b>，置顶拖动、透明度可调</span></li>
@@ -566,7 +595,7 @@
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card">
     <button class="modal-x" data-close aria-label="关闭">✕</button>
-    <img src="assets/donate-qr.png" alt="微信赞赏码">
+    <img data-src="assets/donate-qr.webp" alt="微信赞赏码">
     <p class="m-title">请作者喝杯咖啡 ☕</p>
     <p class="m-sub">微信扫一扫赞赏 · 金额随意，心意最重要</p>
   </div>
@@ -577,7 +606,7 @@
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card">
     <button class="modal-x" data-close aria-label="关闭">✕</button>
-    <img id="gzh-qr" src="assets/gzh-qr.png" alt="微信公众号二维码" hidden>
+    <img id="gzh-qr" data-src="assets/gzh-qr.webp" alt="微信公众号二维码" hidden>
     <div class="gzh-fallback" id="gzh-fallback">
       <span class="gzh-badge">WECHAT</span>
       <span class="gzh-name">月照霖</span>
@@ -642,7 +671,13 @@
     function bind(id, sel){
       var m=document.getElementById(id);
       if(!m) return;
-      function open(e){ e.preventDefault(); m.hidden=false; document.body.style.overflow='hidden'; }
+      function open(e){
+        e.preventDefault(); m.hidden=false; document.body.style.overflow='hidden';
+        /* 弹窗里的图片（二维码）首次打开才加载，平时不占流量 */
+        m.querySelectorAll('img[data-src]').forEach(function(i){
+          i.src=i.getAttribute('data-src'); i.removeAttribute('data-src');
+        });
+      }
       function close(){ m.hidden=true; document.body.style.overflow=''; }
       document.querySelectorAll(sel).forEach(function(el){ el.addEventListener('click', open) });
       m.addEventListener('click', function(e){ if(e.target.closest('[data-close]')) close() });
