@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小洪師兄 Studio · 免费好用的 Windows 效率工具</title>
+<title>小洪師兄 Studio · 免费好用的 Windows 效率小工具</title>
 <meta name="description" content="独立开发的免费 Windows 桌面工具下载：WorkAid 文档批处理工具箱、流晷计时器会议倒计时。免安装、不联网、无广告、开源。">
 <link rel="icon" type="image/png" href="assets/logo-icon.png">
-<link rel="preconnect" href="https://api.github.com" crossorigin>
+<link rel="dns-prefetch" href="https://api.github.com">
+<noscript><style>.reveal{opacity:1 !important; transform:none !important}</style></noscript>
 <link rel="canonical" href="https://hongshixiongstudio.cn/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="小洪師兄 Studio">
@@ -92,7 +93,17 @@
   /* ---------- reveal on scroll ---------- */
   .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s cubic-bezier(.28,.11,.32,1), transform .8s cubic-bezier(.28,.11,.32,1)}
   .reveal.in{opacity:1; transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  /* 首屏（标题/按钮/信任标签）不依赖 JS：纯 CSS 立即入场。
+     脚本慢、被延迟或执行失败时，也不会出现"打开是一片黑"的假死观感。 */
+  @keyframes heroIn{from{opacity:0; transform:translateY(26px)} to{opacity:1; transform:none}}
+  .hero .reveal{opacity:1; transform:none; animation:heroIn .7s cubic-bezier(.28,.11,.32,1) both}
+  .hero .wrap > :nth-child(2){animation-delay:.05s}
+  .hero .wrap > :nth-child(3){animation-delay:.1s}
+  .hero .wrap > :nth-child(4){animation-delay:.15s}
+  .hero .wrap > :nth-child(5){animation-delay:.2s}
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.hero .reveal{opacity:1;transform:none;transition:none;animation:none}
+  }
 
   /* ---------- nav（毛玻璃） ---------- */
   .site-header{
@@ -620,11 +631,20 @@
 <script>
   (function(){
     var els=document.querySelectorAll('.reveal');
+    if(!els.length) return;
     if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
     var io=new IntersectionObserver(function(es){
       es.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in'); io.unobserve(en.target)} });
     },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
     els.forEach(function(e,i){ e.style.transitionDelay=(i%4)*70+'ms'; io.observe(e) });
+    /* 兜底：万一观察器没生效，1.5 秒后把"当前屏幕内"仍未显示的内容直接显示出来 */
+    setTimeout(function(){
+      els.forEach(function(e){
+        if(e.classList.contains('in')) return;
+        var r=e.getBoundingClientRect();
+        if(r.top < innerHeight && r.bottom > 0) e.classList.add('in');
+      });
+    },1500);
   })();
 
   /* ---------- 实时 Star 数 / 下载量（GitHub API，取不到则整行隐藏） ---------- */
@@ -638,14 +658,23 @@
     function cached(k){
       try{ var c=JSON.parse(sessionStorage.getItem(k)||'null'); if(c&&Date.now()-c.t<6e5) return c.d }catch(e){}
     }
+    /* 单请求 5 秒硬超时：链路差时快速放弃，不长时间占着连接和带宽 */
+    function get(url,h){
+      var ctl=('AbortController' in window)?new AbortController():null;
+      var opt={headers:h};
+      if(ctl) opt.signal=ctl.signal;
+      var tid=setTimeout(function(){ if(ctl) ctl.abort() },5000);
+      return fetch(url,opt).then(function(r){ clearTimeout(tid); return r.ok?r.json():null })
+                           .catch(function(){ clearTimeout(tid); return null });
+    }
     function load(repo){
       var k='ghstat:'+repo, c=cached(k);
       if(c) return Promise.resolve(c);
-      var h={headers:{'Accept':'application/vnd.github+json'}};
+      var h={'Accept':'application/vnd.github+json'};
       var api='https://api.github.com/repos/'+repo;
       return Promise.all([
-        fetch(api,h).then(function(r){return r.ok?r.json():null}),
-        fetch(api+'/releases?per_page=100',h).then(function(r){return r.ok?r.json():null})
+        get(api,h),
+        get(api+'/releases?per_page=100',h)
       ]).then(function(res){
         var info=res[0], rels=res[1], dl=0;
         if(!info) return null;
@@ -655,15 +684,21 @@
         return d;
       });
     }
-    boxes.forEach(function(box){
-      load(box.getAttribute('data-repo')).then(function(d){
-        if(!d) return;
-        if(!force && d.stars<MIN.stars && d.downloads<MIN.downloads) return;
-        box.querySelector('[data-f="stars"]').textContent=fmt(d.stars);
-        box.querySelector('[data-f="downloads"]').textContent=fmt(d.downloads);
-        box.hidden=false;
-      }).catch(function(){});
-    });
+    /* 首屏优先：等页面自身加载完 1.2 秒再拉数据，不和 HTML、图片抢那点带宽 */
+    function run(){
+      boxes.forEach(function(box){
+        load(box.getAttribute('data-repo')).then(function(d){
+          if(!d) return;
+          if(!force && d.stars<MIN.stars && d.downloads<MIN.downloads) return;
+          box.querySelector('[data-f="stars"]').textContent=fmt(d.stars);
+          box.querySelector('[data-f="downloads"]').textContent=fmt(d.downloads);
+          box.hidden=false;
+        }).catch(function(){});
+      });
+    }
+    if(force) run();
+    else if(document.readyState==='complete') setTimeout(run,1200);
+    else window.addEventListener('load',function(){ setTimeout(run,1200) });
   })();
 
   /* ---------- 弹窗（赞赏 / 微信公众号） ---------- */
