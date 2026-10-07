@@ -276,8 +276,8 @@
   /* ---------- 更新日志（苹果式时间线） ---------- */
   .log{padding:96px 0 20px; text-align:center}
   .log p.log-sub{max-width:560px; margin:14px auto 0; font-size:16px; color:var(--ink-2)}
-  .log-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; text-align:left; align-items:start}
-  .log-card{background:var(--tile); border-radius:28px; padding:36px 36px 30px}
+  .log-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; text-align:left; align-items:stretch}
+  .log-card{background:var(--tile); border-radius:28px; padding:36px 36px 30px; display:flex; flex-direction:column}
   .log-card h3{font-size:20px; font-weight:700; letter-spacing:-.01em}
   .log-card .repo{font-size:13px; color:var(--ink-3); margin:4px 0 24px}
   .vrow{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
@@ -287,6 +287,7 @@
   .log-card li{display:flex; gap:9px; font-size:13.5px; color:var(--ink-2); line-height:1.55}
   .log-card li::before{content:""; flex:none; width:5px; height:5px; border-radius:50%; background:var(--blue); margin-top:8px}
   .log-more{font-size:13.5px; display:inline-block; margin-top:2px}
+  .log-card .log-more{margin-top:auto; align-self:flex-start}
 
   /* ---------- FAQ（苹果式分行手风琴） ---------- */
   .faq{padding:96px 0 90px}
