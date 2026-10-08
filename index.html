@@ -200,9 +200,14 @@
     transition:transform .5s cubic-bezier(.28,.11,.32,1), box-shadow .5s;
   }
   .tile:hover .tile-shot{transform:scale(1.015); box-shadow:0 30px 70px rgba(0,0,0,.6)}
-  .feats{list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 auto 26px; max-width:470px}
+  .feats{list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 auto; max-width:470px; overflow:hidden; transition:max-height .34s cubic-bezier(.28,.11,.32,1)}
   .feats li{display:inline-flex; align-items:center; font-size:12.5px; color:var(--ink-2); border:1px solid var(--hair-2); border-radius:999px; padding:6px 13px; line-height:1; white-space:nowrap}
   .feats b{color:var(--ink); font-weight:500}
+  .feats-more{display:inline-flex; align-items:center; gap:5px; margin:11px auto 26px; padding:3px 11px; font-family:inherit; font-size:12.5px; color:var(--blue); background:none; border:0; border-radius:999px; cursor:pointer}
+  .feats-more::after{content:""; width:6px; height:6px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform:rotate(45deg) translate(-1px,-1px); transition:transform .3s}
+  .feats-more:hover{background:var(--soft)}
+  .feats-more[aria-expanded="true"]::after{transform:rotate(-135deg) translate(-1px,-1px)}
+  .feats-more[hidden]{display:none}
   .tile .ctas{margin-top:auto; display:flex; flex-direction:column; gap:12px}
   .tile .ctas .pill{width:100%}
   .tile-foot{font-size:12px; color:var(--ink-3); margin-top:18px}
@@ -270,8 +275,9 @@
     .tile h2{font-size:26px}
     .tile .tile-sub{font-size:14.5px; max-width:340px}
     .tile-shot{height:230px; margin:22px 0 20px; border-radius:16px}
-    .feats{max-width:none; gap:7px; margin-bottom:22px}
+    .feats{max-width:none; gap:7px}
     .feats li{font-size:13px}
+    .feats-more{margin-bottom:22px}
     .stats{margin:18px 0; gap:11px}
     .tile-note,.mirror{font-size:12px; line-height:1.6}
     /* 预留位不再通栏，与两张软件卡并排；按钮下压，与另外两张卡底部对齐 */
@@ -473,6 +479,7 @@
           <li>图片<b>批量重命名</b></li>
           <li><b>7 种格式</b>互转</li>
         </ul>
+        <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
         <div class="stats" data-repo="gityongzhong/WorkAid" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
@@ -501,6 +508,7 @@
           <li><b>多计时器</b> · 分类</li>
           <li><b>零打扰</b> · 不联网</li>
         </ul>
+        <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
         <div class="stats" data-repo="gityongzhong/Liugui-Timer" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
@@ -855,6 +863,46 @@
     function no(){ img.hidden=true;  if(fb) fb.hidden=false; }
     if(img.complete){ img.naturalWidth>0 ? ok() : no(); }
     else { img.addEventListener('load',ok); img.addEventListener('error',no); }
+  })();
+
+  /* ---------- 功能项：默认最多两行，排不下的收进「展开全部」 ---------- */
+  (function(){
+    var LINES=2;
+    document.querySelectorAll('.feats').forEach(function(ul){
+      var btn=ul.nextElementSibling;
+      if(!btn||!btn.classList.contains('feats-more')) return;
+      var lim=0;
+      function limit(){
+        var li=ul.querySelector('li');
+        if(!li) return 0;
+        var cs=getComputedStyle(ul);
+        var gap=parseFloat(cs.rowGap)||parseFloat(cs.gap)||0;
+        return li.offsetHeight*LINES+gap;
+      }
+      function setOpen(open){
+        if(open){
+          ul.style.maxHeight=ul.scrollHeight+'px';
+          btn.setAttribute('aria-expanded','true');
+          btn.textContent='收起';
+        }else{
+          ul.style.maxHeight=lim+'px';
+          btn.setAttribute('aria-expanded','false');
+          btn.textContent='展开全部';
+        }
+      }
+      function fit(){
+        lim=limit();
+        if(!lim) return;
+        if(ul.scrollHeight>lim+2){ btn.hidden=false; setOpen(false); }
+        else { ul.style.maxHeight='none'; btn.hidden=true; }
+      }
+      btn.addEventListener('click',function(){ setOpen(btn.getAttribute('aria-expanded')!=='true'); });
+      fit();
+      window.addEventListener('load',fit);
+      if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+      var t;
+      window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(fit,180); });
+    });
   })();
 </script>
 
