@@ -200,9 +200,8 @@
     transition:transform .5s cubic-bezier(.28,.11,.32,1), box-shadow .5s;
   }
   .tile:hover .tile-shot{transform:scale(1.015); box-shadow:0 30px 70px rgba(0,0,0,.6)}
-  .feats{list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; margin:0 auto 26px; text-align:left; max-width:470px}
-  .feats li{display:flex; gap:8px; align-items:flex-start; font-size:13.5px; color:var(--ink-2)}
-  .feats svg{flex:none; margin-top:4px}
+  .feats{list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 auto 26px; max-width:470px}
+  .feats li{display:inline-flex; align-items:center; font-size:12.5px; color:var(--ink-2); border:1px solid var(--hair-2); border-radius:999px; padding:6px 13px; line-height:1; white-space:nowrap}
   .feats b{color:var(--ink); font-weight:500}
   .tile .ctas{margin-top:auto; display:flex; flex-direction:column; gap:12px}
   .tile .ctas .pill{width:100%}
@@ -271,7 +270,7 @@
     .tile h2{font-size:26px}
     .tile .tile-sub{font-size:14.5px; max-width:340px}
     .tile-shot{height:230px; margin:22px 0 20px; border-radius:16px}
-    .feats{grid-template-columns:1fr; gap:8px; max-width:none; margin-bottom:22px}
+    .feats{max-width:none; gap:7px; margin-bottom:22px}
     .feats li{font-size:13px}
     .stats{margin:18px 0; gap:11px}
     .tile-note,.mirror{font-size:12px; line-height:1.6}
@@ -376,7 +375,7 @@
   }
   @media (max-width:640px){
     .val-grid{grid-template-columns:1fr 1fr}
-    .feats{grid-template-columns:1fr}
+    .feats{max-width:none}
     h1{font-size:clamp(31px,9.4vw,42px); margin-bottom:14px}
     .hero{padding:72px 0 56px}
     .hero p.sub{font-size:16.5px}
@@ -467,12 +466,12 @@
         <p class="tile-sub">10 项常用功能，批量处理、拖拽即用。文件全程<b>本机处理、不联网</b>。</p>
         <img class="tile-shot" src="assets/workaid-showcase.webp" alt="WorkAid 界面展示" loading="lazy" decoding="async" width="810" height="1080" style="object-position:center top">
         <ul class="feats">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>Word / PPT</b> 转 PDF</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>PDF 转 Word</b>，免装 Office</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>PDF <b>加水印</b> 合并 拆分</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>PDF <b>转图片</b>、图片转 PDF</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>图片<b>批量重命名</b></span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>图片<b>格式转换</b> · 7 种互转</span></li>
+          <li><b>Word / PPT</b> 转 PDF</li>
+          <li><b>PDF 转 Word</b></li>
+          <li>加水印 · 合并 · 拆分</li>
+          <li>PDF 与图片<b>互转</b></li>
+          <li>图片<b>批量重命名</b></li>
+          <li><b>7 种格式</b>互转</li>
         </ul>
         <div class="stats" data-repo="gityongzhong/WorkAid" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
@@ -495,12 +494,12 @@
         <p class="tile-sub">把时长设好放一边，剩下的交给它提醒。全程<b>视觉提示</b>，不响铃、不打断会议。</p>
         <img class="tile-shot" src="assets/liugui-intro.webp" alt="流晷计时器界面展示" loading="lazy" decoding="async" width="1600" height="980">
         <ul class="feats">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>全屏投屏</b>，最后一排也看得清</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>悬浮窗</b>，置顶拖动、透明度可调</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>PPT / WPS</b> 放映自动计时</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>多屏优化</b>，自动落演讲者屏</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>多计时器 + 分类</b>，一键预设</span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span><b>零打扰</b>，不联网不驻留后台</span></li>
+          <li><b>全屏投屏</b></li>
+          <li><b>悬浮窗</b>置顶</li>
+          <li><b>PPT / WPS</b> 自动计时</li>
+          <li><b>多屏优化</b></li>
+          <li><b>多计时器</b> · 分类</li>
+          <li><b>零打扰</b> · 不联网</li>
         </ul>
         <div class="stats" data-repo="gityongzhong/Liugui-Timer" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
