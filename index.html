@@ -208,13 +208,14 @@
   .feats-more:hover{background:var(--soft)}
   .feats-more[aria-expanded="true"]::after{transform:rotate(-135deg) translate(-1px,-1px)}
   .feats-more[hidden]{display:none}
-  .tile .ctas{margin-top:auto; display:flex; flex-direction:column; gap:12px}
+  .tile .ctas{display:flex; flex-direction:column; gap:12px}
   .tile .ctas .pill{width:100%}
   .tile-foot{font-size:12px; color:var(--ink-3); margin-top:18px}
   .tile-note{font-size:12px; color:var(--ink-3); margin-top:12px}
   .mirror{font-size:12.5px; color:var(--ink-3); margin-top:10px}
-  .stats{display:flex; align-items:center; justify-content:center; gap:13px; margin:22px 0 22px; font-size:12.5px; color:var(--ink-3)}
+  .stats{display:flex; align-items:center; justify-content:center; gap:13px; margin:auto 0 22px; font-size:12.5px; color:var(--ink-3)}
   .stats[hidden]{display:none}
+  .stats[hidden] + .ctas{margin-top:auto}
   .stats .st{display:inline-flex; align-items:center; gap:6px}
   .stats .st svg{opacity:.9}
   .stats b{font-size:15.5px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
@@ -278,7 +279,7 @@
     .feats{max-width:none; gap:7px}
     .feats li{font-size:13px}
     .feats-more{margin-bottom:22px}
-    .stats{margin:18px 0; gap:11px}
+    .stats{margin:auto 0 18px; gap:11px}
     .tile-note,.mirror{font-size:12px; line-height:1.6}
     /* 预留位不再通栏，与两张软件卡并排；按钮下压，与另外两张卡底部对齐 */
     .tile-soon{grid-column:auto; padding:38px 28px 34px}
@@ -396,7 +397,7 @@
     .tile .tile-sub{font-size:14.5px}
     .tile-shot{height:200px; margin:20px 0 18px; border-radius:14px}
     .feats li{font-size:13px}
-    .stats{margin:18px 0; gap:10px}
+    .stats{margin:auto 0 18px; gap:10px}
     .pill{font-size:15.5px; padding:13px 24px}
     .tile-note,.mirror{font-size:12.5px; line-height:1.65}
     .val{padding:30px 22px; border-radius:24px}
