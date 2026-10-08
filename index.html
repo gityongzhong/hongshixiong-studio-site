@@ -164,11 +164,9 @@
     background:linear-gradient(94deg,#2997ff 10%,#bf5af2 90%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  .hero p.sub{max-width:620px; margin:0 auto; font-size:clamp(17px,2.2vw,21px); color:var(--ink-2); letter-spacing:.01em}
-  .hero p.sub b{color:var(--ink); font-weight:600}
+  .trust{display:flex; gap:26px; justify-content:center; flex-wrap:wrap}
+  .trust span{font-size:17px; color:var(--ink-2)}
   .hero .cta-row{margin-top:34px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap}
-  .trust{margin-top:38px; display:flex; gap:26px; justify-content:center; flex-wrap:wrap}
-  .trust span{font-size:13px; color:var(--ink-3)}
 
   /* ---------- 胶囊按钮 ---------- */
   .pill{
@@ -385,11 +383,10 @@
     .feats{max-width:none}
     h1{font-size:clamp(31px,9.4vw,42px); margin-bottom:14px}
     .hero{padding:72px 0 56px}
-    .hero p.sub{font-size:16.5px}
+    .trust{gap:10px 18px}
+    .trust span{font-size:15px}
     .hero .cta-row{gap:10px; margin-top:28px}
     .hero .cta-row .pill{min-width:250px}
-    .trust{gap:10px 18px; margin-top:30px}
-    .trust span{font-size:12.5px}
     .eyebrow{font-size:14px}
     .app-grid{gap:14px}
     .video-grid{gap:14px}
@@ -448,16 +445,15 @@
     <div class="wrap">
       <div class="eyebrow reveal">独立开发 · 免费 · 开源</div>
       <h1 class="reveal">免费好用的<br><span class="grad">Windows 效率小工具。</span></h1>
-      <p class="sub reveal">文档批处理工具箱 <b>WorkAid</b> 与会议倒计时 <b>流晷计时器</b>——<br>免安装、不联网、无广告，下载解压即用。</p>
-      <div class="cta-row reveal">
-        <a class="pill pill-primary" href="#workaid">下载 WorkAid</a>
-        <a class="pill pill-ghost" href="#liugui">下载流晷计时器</a>
-      </div>
       <div class="trust reveal">
         <span>📦 免安装 · 解压即用</span>
         <span>🔒 本机处理 · 不联网</span>
         <span>🚫 无广告 · 无捆绑</span>
         <span>📖 MIT 开源</span>
+      </div>
+      <div class="cta-row reveal">
+        <a class="pill pill-primary" href="#workaid">下载 WorkAid</a>
+        <a class="pill pill-ghost" href="#liugui">下载流晷计时器</a>
       </div>
     </div>
   </section>
