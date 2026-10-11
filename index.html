@@ -267,23 +267,29 @@
   .vstat svg{flex:none}
   .videos-more{display:inline-block; margin-top:34px; font-size:15px}
 
-  /* ---------- 桌面三列：三张卡片并排一行 ---------- */
+  /* ---------- 平板两列：四卡 2×2，预留位不通栏 ---------- */
+  @media (min-width:921px) and (max-width:1099px){
+    .tile-soon{grid-column:auto}
+  }
+
+  /* ---------- 桌面四列：四张卡片并排一行 ---------- */
   @media (min-width:1100px){
-    .app-grid{grid-template-columns:repeat(3,1fr); gap:18px}
-    .tile{padding:38px 28px 34px; border-radius:26px}
-    .tile h2{font-size:26px}
-    .tile .tile-sub{font-size:14.5px; max-width:340px}
-    .tile-shot{height:230px; margin:22px 0 20px; border-radius:16px}
-    .feats{max-width:none; gap:7px}
-    .feats li{font-size:13px}
-    .feats-more{margin-bottom:22px}
-    .stats{margin:auto 0 18px; gap:11px}
-    .tile-note,.mirror{font-size:12px; line-height:1.6}
-    /* 预留位不再通栏，与两张软件卡并排；按钮下压，与另外两张卡底部对齐 */
-    .tile-soon{grid-column:auto; padding:38px 28px 34px}
-    .tile-soon h2{font-size:23px}
-    .tile-soon .tile-sub{max-width:340px; margin-bottom:20px}
-    .tile-soon .soon-ic{width:46px; height:46px; margin-bottom:16px}
+    .app-grid{grid-template-columns:repeat(4,1fr); gap:16px}
+    .apps.wrap{max-width:1440px}
+    .tile{padding:34px 24px 30px; border-radius:24px}
+    .tile h2{font-size:23px}
+    .tile .tile-sub{font-size:13.5px; max-width:none}
+    .tile-shot{height:170px; margin:20px 0 18px; border-radius:14px}
+    .feats{max-width:none; gap:6px}
+    .feats li{font-size:12.5px; padding:5px 11px}
+    .feats-more{margin-bottom:18px}
+    .stats{margin:auto 0 16px; gap:10px}
+    .tile-note,.mirror{font-size:11.5px; line-height:1.55}
+    /* 预留位与三张软件卡并排；按钮下压，与另外三张卡底部对齐 */
+    .tile-soon{grid-column:auto; padding:34px 24px 30px}
+    .tile-soon h2{font-size:21px}
+    .tile-soon .tile-sub{max-width:none; margin-bottom:18px}
+    .tile-soon .soon-ic{width:44px; height:44px; margin-bottom:14px}
     .tile-soon .ctas{margin-top:auto}
     .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
@@ -520,8 +526,37 @@
         <p class="tile-foot">Windows 10 / 11 · 64 位 · 免安装 · MIT 开源 · 完全免费</p>
       </article>
 
-      <!-- ======== 第三款软件 · 预留位 ========
-           以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面两张卡片相同的结构即可：
+      <!-- ======== PixTrace ======== -->
+      <article class="tile reveal" id="pixtrace">
+        <div class="eyebrow">PixTrace · v0.5.3</div>
+        <h2>本地批量<br>抠图去背景</h2>
+        <p class="tile-sub">去背景、换纯色底，批量拖入即处理。图片全程<b>留在本机、断网可用</b>，无账号无次数限制。</p>
+        <img class="tile-shot" src="assets/pixtrace-preview.webp" alt="PixTrace 去背景效果对比" loading="lazy" decoding="async" width="1925" height="1175">
+        <ul class="feats">
+          <li><b>去背景</b> · 透明 PNG</li>
+          <li><b>换纯色底</b> · 任意取色</li>
+          <li><b>边缘去色染</b> · 换底无色边</li>
+          <li><b>批量</b> · 拖入文件夹递归</li>
+          <li><b>对比预览</b> · 分割线可拖</li>
+          <li><b>两档模型</b> · 内置离线</li>
+        </ul>
+        <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
+        <div class="stats" data-repo="gityongzhong/PixTrace" hidden>
+          <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
+          <span class="sep"></span>
+          <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
+        </div>
+        <div class="ctas">
+          <a class="pill pill-primary" href="https://github.com/gityongzhong/PixTrace/releases/download/v0.5.3/PixTrace-0.5.3-portable.zip" target="_blank" rel="noopener">下载 · 214 MB</a>
+          <a class="pill pill-ghost" href="https://github.com/gityongzhong/PixTrace" target="_blank" rel="noopener">GitHub 源码仓库</a>
+        </div>
+        <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/PixTrace/releases/download/v0.5.3/PixTrace-0.5.3-portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/PixTrace/releases/download/v0.5.3/PixTrace-0.5.3-portable.zip" target="_blank" rel="noopener">通道二</a></p>
+        <p class="tile-note">安装方式：解压到任意位置，双击 PixTrace.exe 即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
+        <p class="tile-foot">Windows 10 / 11 · 64 位 · 免安装绿色版 · MIT 开源 · 永久免费</p>
+      </article>
+
+      <!-- ======== 下款软件 · 预留位 ========
+           以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面三张卡片相同的结构即可：
            eyebrow（软件名 · 版本号）→ h2（一句话定位）→ tile-sub（简介）→ tile-shot（截图）
            → feats（功能清单）→ ctas（下载按钮）→ tile-note（安装方式）→ tile-foot（运行环境）
       -->
@@ -530,7 +565,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         </div>
         <div class="eyebrow">敬请期待</div>
-        <h2>第三个作品，正在路上。</h2>
+        <h2>下一个作品，正在路上。</h2>
         <p class="tile-sub">下一个免费小工具还在打磨中，做好就放到这里。想要什么功能，欢迎来说一声。</p>
         <div class="ctas">
           <a class="pill pill-ghost pill-sm" href="https://github.com/gityongzhong" target="_blank" rel="noopener">关注新作品动态</a>
