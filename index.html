@@ -228,7 +228,7 @@
   .val h3{font-size:18px; font-weight:700; margin-bottom:5px}
   .val p{font-size:13.5px; color:var(--ink-3)}
 
-  /* ---------- 第三款软件 · 预留位 ---------- */
+  /* ---------- 预留位：下一个作品 ---------- */
   .tile-soon{
     grid-column:1 / -1; background:var(--tile-2);
     border:1px dashed var(--dash); padding:46px 42px 44px;
@@ -238,11 +238,27 @@
     border:1px dashed var(--dash-2); color:var(--ink-3);
     display:flex; align-items:center; justify-content:center;
   }
+  .tile-soon .soon-body{display:flex; flex-direction:column; align-items:center}
   .tile-soon h2{font-size:clamp(22px,2.6vw,28px)}
   .tile-soon .tile-sub{max-width:540px; margin-bottom:24px}
   .tile-soon .ctas{flex-direction:row; justify-content:center; margin-top:0}
   .tile-soon .ctas .pill{width:auto}
   .tile-soon .soon-tip{font-size:12px; color:var(--ink-3); margin-top:18px}
+
+  /* ---------- ≥921：软件卡已满行，预留位通栏变横条 ---------- */
+  @media (min-width:921px){
+    .tile-soon{
+      flex-direction:row; align-items:center; text-align:left;
+      gap:24px; padding:30px 40px;
+    }
+    .tile-soon .soon-ic{margin:0; flex:none; width:44px; height:44px}
+    .tile-soon .soon-body{flex:1; min-width:0; align-items:flex-start}
+    .tile-soon .eyebrow{margin-bottom:4px}
+    .tile-soon h2{font-size:21px}
+    .tile-soon .tile-sub{max-width:none; margin:6px 0 0; font-size:13.5px}
+    .tile-soon .soon-tip{margin-top:8px}
+    .tile-soon .ctas{margin:0 0 0 auto; flex:none}
+  }
 
   /* ---------- B 站视频 ---------- */
   .videos{padding:96px 0 20px; text-align:center}
@@ -267,13 +283,7 @@
   .vstat svg{flex:none}
   .videos-more{display:inline-block; margin-top:34px; font-size:15px}
 
-  /* ---------- 平板两列：四卡 2×2，预留位不通栏 ---------- */
-  @media (min-width:921px) and (max-width:1099px){
-    .tile-soon{grid-column:auto}
-    .log-card:nth-child(3){grid-column:1 / -1}
-  }
-
-  /* ---------- 桌面四列：四张卡片并排一行 ---------- */
+  /* ---------- 桌面四列：四张软件卡并排一行，预留位通栏 ---------- */
   @media (min-width:1100px){
     .app-grid{grid-template-columns:repeat(4,1fr); gap:16px}
     .apps.wrap{max-width:1440px}
@@ -286,12 +296,6 @@
     .feats-more{margin-bottom:18px}
     .stats{margin:auto 0 16px; gap:10px}
     .tile-note,.mirror{font-size:11.5px; line-height:1.55}
-    /* 预留位与三张软件卡并排；按钮下压，与另外三张卡底部对齐 */
-    .tile-soon{grid-column:auto; padding:34px 24px 30px}
-    .tile-soon h2{font-size:21px}
-    .tile-soon .tile-sub{max-width:none; margin-bottom:18px}
-    .tile-soon .soon-ic{width:44px; height:44px; margin-bottom:14px}
-    .tile-soon .ctas{margin-top:auto}
     .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
 
@@ -299,7 +303,7 @@
   .log{padding:96px 0 20px; text-align:center}
   .log p.log-sub{max-width:560px; margin:14px auto 0; font-size:16px; color:var(--ink-2)}
   .log-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; text-align:left; align-items:stretch}
-  @media (min-width:1100px){ .log-grid{grid-template-columns:repeat(3,1fr); gap:18px} .log-card{padding:32px 28px 26px; border-radius:24px} .log-card h3{font-size:18px} .log-card li{font-size:13px} }
+  @media (min-width:1100px){ .log-grid{gap:20px} .log-card{padding:32px 34px 28px; border-radius:24px} .log-card h3{font-size:18px} .log-card li{font-size:13px} }
   .log-card{background:var(--tile); border-radius:28px; padding:36px 36px 30px; display:flex; flex-direction:column}
   .log-card h3{font-size:20px; font-weight:700; letter-spacing:-.01em}
   .log-card .repo{font-size:13px; color:var(--ink-3); margin:4px 0 24px}
@@ -557,8 +561,37 @@
         <p class="tile-foot">Windows 10 / 11 · 64 位 · 免安装绿色版 · MIT 开源 · 永久免费</p>
       </article>
 
+      <!-- ======== OFDee ======== -->
+      <article class="tile reveal" id="ofdee">
+        <div class="eyebrow">OFDee · v1.2.0</div>
+        <h2>OFD / PDF<br>桌面阅读器</h2>
+        <p class="tile-sub">自研 OFD 渲染内核，红头公文的内嵌字体与字距版式<b>原样呈现</b>。免安装、不联网。</p>
+        <img class="tile-shot" src="assets/ofdee-preview.webp" alt="OFDee 打开红头公文的效果" loading="lazy" decoding="async" width="1600" height="1005">
+        <ul class="feats">
+          <li><b>OFD / PDF</b> 双格式</li>
+          <li><b>自研 OFD 内核</b> · 版式还原</li>
+          <li><b>内嵌字体</b> · 公文不丢字</li>
+          <li><b>单双页对开</b> · 缩放</li>
+          <li><b>目录 / 书签</b> · 查找</li>
+          <li><b>深色主题</b> · 不联网</li>
+        </ul>
+        <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
+        <div class="stats" data-repo="gityongzhong/OFDee" hidden>
+          <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
+          <span class="sep"></span>
+          <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
+        </div>
+        <div class="ctas">
+          <a class="pill pill-primary" href="https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">下载 · 3.7 MB</a>
+          <a class="pill pill-ghost" href="https://github.com/gityongzhong/OFDee" target="_blank" rel="noopener">GitHub 源码仓库</a>
+        </div>
+        <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">通道二</a></p>
+        <p class="tile-note">安装方式：解压到任意位置，双击 OFDee.exe 即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
+        <p class="tile-foot">Windows 10 / 11 · 64 位 · 免安装 · MIT 开源 · 永久免费</p>
+      </article>
+
       <!-- ======== 下款软件 · 预留位 ========
-           以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面三张卡片相同的结构即可：
+           以后有新软件上架时，把下面整块 <article class="tile tile-soon"> 替换成与上面四张卡片相同的结构即可：
            eyebrow（软件名 · 版本号）→ h2（一句话定位）→ tile-sub（简介）→ tile-shot（截图）
            → feats（功能清单）→ ctas（下载按钮）→ tile-note（安装方式）→ tile-foot（运行环境）
       -->
@@ -566,13 +599,15 @@
         <div class="soon-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         </div>
-        <div class="eyebrow">敬请期待</div>
-        <h2>下一个作品，正在路上。</h2>
-        <p class="tile-sub">下一个免费小工具还在打磨中，做好就放到这里。想要什么功能，欢迎来说一声。</p>
+        <div class="soon-body">
+          <div class="eyebrow">敬请期待</div>
+          <h2>下一个作品，正在路上。</h2>
+          <p class="tile-sub">下一个免费小工具还在打磨中，做好就放到这里。想要什么功能，欢迎来说一声。</p>
+          <p class="soon-tip">同样免费、免安装、不联网、开源</p>
+        </div>
         <div class="ctas">
           <a class="pill pill-ghost pill-sm" href="https://github.com/gityongzhong" target="_blank" rel="noopener">关注新作品动态</a>
         </div>
-        <p class="soon-tip">同样免费、免安装、不联网、开源</p>
       </article>
 
     </div>
@@ -703,6 +738,19 @@
           <li>功能与体积不变：214 MB 免安装便携版，模型内置离线可用</li>
         </ul>
         <a class="log-more" href="https://github.com/gityongzhong/PixTrace/releases" target="_blank" rel="noopener">查看全部版本 →</a>
+      </article>
+
+      <!-- OFDee 更新 -->
+      <article class="log-card reveal">
+        <h3>OFDee</h3>
+        <p class="repo">OFD / PDF 桌面阅读器</p>
+        <div class="vrow"><span class="ver">v1.2.0</span><span class="vdate">2026.10.23</span></div>
+        <ul>
+          <li>修复 OFD 字距解析错误导致的整页「丢字」问题</li>
+          <li>新增页面旋转：当前页 / 全部页顺时针 90°，可复位</li>
+          <li>自研 OFD 内核：内嵌字体、印章、表格线按毫米还原</li>
+        </ul>
+        <a class="log-more" href="https://github.com/gityongzhong/OFDee/releases" target="_blank" rel="noopener">查看全部版本 →</a>
       </article>
 
     </div>
