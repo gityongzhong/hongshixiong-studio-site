@@ -223,7 +223,8 @@
   .values{padding:96px 0 20px; text-align:center}
   h2.big{font-size:clamp(30px,4vw,44px); font-weight:700; letter-spacing:-.02em}
   .val-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px}
-  .val{background:var(--tile); border-radius:28px; padding:38px 26px}
+  .val{background:var(--tile); border-radius:28px; padding:38px 26px; transition:transform .4s cubic-bezier(.28,.11,.32,1), box-shadow .4s cubic-bezier(.28,.11,.32,1)}
+  .val:hover{transform:translateY(-4px); box-shadow:var(--shot-shadow)}
   .val .ic{width:52px;height:52px; margin:0 auto 16px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--soft)}
   .val h3{font-size:18px; font-weight:700; margin-bottom:5px}
   .val p{font-size:13.5px; color:var(--ink-3)}
@@ -278,7 +279,7 @@
     background:rgba(0,0,0,.78); color:#fff; font-size:12px; font-variant-numeric:tabular-nums;
   }
   .vmeta{padding:18px 20px 22px; display:flex; flex-direction:column; gap:10px; flex:1}
-  .vmeta h3{font-size:15px; font-weight:600; line-height:1.45; color:var(--ink)}
+  .vmeta h3{font-size:15px; font-weight:600; line-height:1.45; color:var(--ink); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden}
   .vstat{display:flex; align-items:center; gap:6px; margin-top:auto; font-size:12.5px; color:var(--ink-3)}
   .vstat svg{flex:none}
   .videos-more{display:inline-block; margin-top:34px; font-size:15px}
@@ -330,9 +331,12 @@
   .faq summary::after{
     content:""; width:11px; height:11px; flex:none;
     border-right:2px solid var(--ink-3); border-bottom:2px solid var(--ink-3);
-    transform:rotate(45deg); transition:transform .3s;
+    transform:rotate(45deg); transition:transform .3s, border-color .2s;
   }
+  .faq summary:hover::after{border-color:var(--ink)}
   .faq details[open] summary::after{transform:rotate(225deg); margin-top:6px}
+  @keyframes faqIn{from{opacity:0; transform:translateY(-6px)} to{opacity:1; transform:none}}
+  .faq details[open] .a{animation:faqIn .35s cubic-bezier(.28,.11,.32,1)}
   .faq .a{color:var(--ink-2); font-size:15px; padding:0 40px 24px 4px; max-width:820px}
   .faq code{background:var(--code-bg); border-radius:5px; padding:1px 7px; font-size:13px}
 
@@ -346,6 +350,9 @@
   footer .donate-link{color:var(--blue)}
   footer .mail-link{color:var(--blue)}
   footer .mail-link:hover{text-decoration:underline}
+  footer .icp{margin-top:8px}
+  footer .icp a{color:var(--ink-3)}
+  footer .icp a:hover{color:var(--ink-strong)}
 
   /* ---------- 赞赏弹窗 ---------- */
   .modal{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:24px}
@@ -794,6 +801,7 @@
       <a href="#" data-gzh>微信公众号</a>
     </div>
     <p>Copyright © 2026 小洪師兄 Studio. 保留所有权利。</p>
+    <p class="icp" hidden><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">X ICP 备 00000000 号</a></p>
     <p>联系我：<a href="mailto:hongyongzhong2020@126.com" class="mail-link">hongyongzhong2020@126.com</a></p>
     <p>支持作者-<a href="#" class="donate-link" data-donate>赞赏</a></p>
   </div>
