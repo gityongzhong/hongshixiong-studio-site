@@ -496,7 +496,7 @@
           <li><b>7 种格式</b>互转</li>
         </ul>
         <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
-        <div class="stats" data-repo="gityongzhong/WorkAid" hidden>
+        <div class="stats" data-repo="gityongzhong/WorkAid" data-stars="2" data-downloads="73" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
           <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
@@ -525,7 +525,7 @@
           <li><b>零打扰</b> · 不联网</li>
         </ul>
         <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
-        <div class="stats" data-repo="gityongzhong/Liugui-Timer" hidden>
+        <div class="stats" data-repo="gityongzhong/Liugui-Timer" data-stars="1" data-downloads="53" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
           <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
@@ -554,7 +554,7 @@
           <li><b>两档模型</b> · 内置离线</li>
         </ul>
         <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
-        <div class="stats" data-repo="gityongzhong/PixTrace" hidden>
+        <div class="stats" data-repo="gityongzhong/PixTrace" data-stars="1" data-downloads="17" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
           <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
@@ -583,7 +583,7 @@
           <li><b>深色主题</b> · 不联网</li>
         </ul>
         <button class="feats-more" type="button" aria-expanded="false" hidden>展开全部</button>
-        <div class="stats" data-repo="gityongzhong/OFDee" hidden>
+        <div class="stats" data-repo="gityongzhong/OFDee" data-stars="1" data-downloads="0" hidden>
           <span class="st"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f5b301" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg><b data-f="stars">–</b><span>Star</span></span>
           <span class="sep"></span>
           <span class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg><b data-f="downloads">–</b><span>次下载</span></span>
@@ -894,7 +894,16 @@
     function run(){
       boxes.forEach(function(box){
         load(box.getAttribute('data-repo')).then(function(d){
-          if(!d) return;
+          if(!d){
+            /* 取不到实时数（被墙/限流）：退回发布时写死的兜底值，保证访客始终看得到 */
+            var fs=box.getAttribute('data-stars'), fd=box.getAttribute('data-downloads');
+            if(fs!==null&&fd!==null){
+              box.querySelector('[data-f="stars"]').textContent=fmt(+fs);
+              box.querySelector('[data-f="downloads"]').textContent=fmt(+fd);
+              box.hidden=false;
+            }
+            return;
+          }
           if(!force && d.stars<MIN.stars && d.downloads<MIN.downloads) return;
           box.querySelector('[data-f="stars"]').textContent=fmt(d.stars);
           box.querySelector('[data-f="downloads"]').textContent=fmt(d.downloads);
