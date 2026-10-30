@@ -284,19 +284,18 @@
   .vstat svg{flex:none}
   .videos-more{display:inline-block; margin-top:34px; font-size:15px}
 
-  /* ---------- 桌面四列：四张软件卡并排一行，预留位通栏 ---------- */
+  /* ---------- 桌面三列：第一行三张软件卡，OFDee 与预留位（占两格）补满第二行 ---------- */
   @media (min-width:1100px){
-    .app-grid{grid-template-columns:repeat(4,1fr); gap:16px}
-    .apps.wrap{max-width:1440px}
-    .tile{padding:34px 24px 30px; border-radius:24px}
-    .tile h2{font-size:23px}
-    .tile .tile-sub{font-size:13.5px; max-width:none}
-    .tile-shot{height:170px; margin:20px 0 18px; border-radius:14px}
-    .feats{max-width:none; gap:6px}
-    .feats li{font-size:12.5px; padding:5px 11px}
-    .feats-more{margin-bottom:18px}
-    .stats{margin:auto 0 16px; gap:10px}
-    .tile-note,.mirror{font-size:11.5px; line-height:1.55}
+    .app-grid{grid-template-columns:repeat(3,1fr); gap:18px}
+    .tile{padding:38px 30px 34px}
+    .tile h2{font-size:25px}
+    .tile .tile-sub{font-size:13.5px}
+    .tile-shot{height:190px; margin:20px 0 18px; border-radius:14px}
+    .feats{gap:7px}
+    .stats{margin:auto 0 18px; gap:11px}
+    .tile-note,.mirror{font-size:12px; line-height:1.6}
+    /* 预留位横向占两格，与第四张卡（OFDee）同排 */
+    .tile-soon{grid-column:span 2}
     .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
 
