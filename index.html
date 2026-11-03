@@ -161,12 +161,15 @@
     letter-spacing:-.022em; margin-bottom:18px;
   }
   h1 .grad{
-    background:linear-gradient(94deg,#2997ff 10%,#bf5af2 90%);
+    background:linear-gradient(94deg,#2997ff 10%,#64d2ff 90%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  html[data-theme="light"] h1 .grad{
+    background:linear-gradient(94deg,#0071e3 10%,#32ade6 90%);
+    -webkit-background-clip:text; background-clip:text;
   }
   .trust{display:flex; gap:26px; justify-content:center; flex-wrap:wrap}
   .trust span{font-size:17px; color:var(--ink-2)}
-  .hero .cta-row{margin-top:34px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap}
 
   /* ---------- 胶囊按钮 ---------- */
   .pill{
@@ -403,8 +406,6 @@
     .hero{padding:72px 0 56px}
     .trust{gap:10px 18px}
     .trust span{font-size:15px}
-    .hero .cta-row{gap:10px; margin-top:28px}
-    .hero .cta-row .pill{min-width:250px}
     .eyebrow{font-size:14px}
     .app-grid{gap:14px}
     .video-grid{gap:14px}
@@ -468,10 +469,6 @@
         <span>🔒 本机处理 · 不联网</span>
         <span>🚫 无广告 · 无捆绑</span>
         <span>📖 MIT 开源</span>
-      </div>
-      <div class="cta-row reveal">
-        <a class="pill pill-primary" href="#workaid">下载 WorkAid</a>
-        <a class="pill pill-ghost" href="#liugui">下载流晷计时器</a>
       </div>
     </div>
   </section>
