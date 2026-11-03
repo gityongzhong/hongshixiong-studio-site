@@ -305,20 +305,6 @@
     .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
 
-  /* ---------- 软件区顶部：更新日志入口 ---------- */
-  .apps-head{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 2px 16px}
-  .apps-head .eyebrow{margin:0}
-  .log-trigger{
-    display:none; align-items:center; gap:7px; font-size:13.5px; font-weight:500;
-    color:var(--blue); text-decoration:none; padding:7px 15px; border-radius:999px;
-    border:1px solid var(--hair-2); background:var(--tile-2); white-space:nowrap;
-    transition:background .2s, border-color .2s, transform .2s;
-  }
-  html.js .log-trigger{display:inline-flex}
-  .log-trigger:hover{background:var(--soft); border-color:var(--blue); transform:translateY(-1px)}
-  .log-trigger svg{flex:none}
-  .log-fallback{font-size:13.5px; color:var(--blue)}
-
   /* ---------- 更新日志（弹窗内的苹果式时间线） ---------- */
   .log-modal-head{text-align:center; padding:0 10px}
   .log-modal-head h2{font-size:clamp(25px,3.2vw,34px); font-weight:700; letter-spacing:-.02em; margin-top:10px}
@@ -427,11 +413,6 @@
     .log-modal-head p{font-size:13.5px}
     .modal-shell .modal-x{top:-8px; right:-4px}
   }
-  @media (max-width:480px){
-    .apps-head{gap:10px}
-    .apps-head .eyebrow{font-size:12px}
-    .log-trigger{font-size:12.5px; padding:6px 12px}
-  }
 
   /* ---------- 公众号弹窗 ---------- */
   /* 二维码图（assets/gzh-qr.png）放进站点后自动显示；没有图时显示公众号名占位卡片 */
@@ -531,14 +512,6 @@
   <!-- ================= APPS（桌面三列瓷砖） ================= -->
   <section class="apps wrap">
     <span id="log"></span>
-    <div class="apps-head">
-      <div class="eyebrow">四款软件 · 持续更新</div>
-      <a class="log-trigger" href="#log" data-log aria-haspopup="dialog" aria-controls="log-modal">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v4.7l3.1 1.9"/></svg>
-        查看更新日志
-      </a>
-      <noscript><a class="log-fallback" href="https://github.com/gityongzhong" target="_blank" rel="noopener">更新日志见 GitHub →</a></noscript>
-    </div>
     <div class="app-grid">
 
       <!-- ======== WorkAid ======== -->
