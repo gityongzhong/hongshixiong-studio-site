@@ -398,11 +398,6 @@
   #log-modal.single .log-grid{grid-template-columns:1fr; max-width:660px; margin:26px auto 0}
   .log-card.hl{animation:logHl 1.6s ease}
   @keyframes logHl{0%{box-shadow:0 0 0 2px var(--blue), var(--screen-shadow)} 100%{box-shadow:0 0 0 0 rgba(41,151,255,0)}}
-  .modal-shell .modal-x{
-    top:-14px; right:-14px; background:rgba(120,120,128,.55); color:#fff;
-    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  }
-  .modal-shell .modal-x:hover{background:rgba(120,120,128,.82)}
   @media (max-width:640px){
     .modal-panel{padding:30px 18px 26px; border-radius:22px; max-height:88vh}
     .modal-panel .log-grid{grid-template-columns:1fr; gap:12px; margin-top:24px}
@@ -411,7 +406,6 @@
     .modal-panel .log-card .repo{margin-bottom:18px}
     .log-modal-head h2{font-size:23px}
     .log-modal-head p{font-size:13.5px}
-    .modal-shell .modal-x{top:-8px; right:-4px}
   }
 
   /* ---------- 公众号弹窗 ---------- */
@@ -793,7 +787,6 @@
 <div class="modal" id="log-modal" hidden role="dialog" aria-modal="true" aria-labelledby="log-modal-title">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-shell">
-    <button class="modal-x" data-close aria-label="关闭更新日志">✕</button>
     <div class="modal-panel">
       <div class="log-modal-head">
         <div class="eyebrow">更新日志</div>
