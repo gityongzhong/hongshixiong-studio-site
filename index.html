@@ -38,6 +38,7 @@
     if(s==='light'||s==='dark') t=s;
   }catch(e){}
   document.documentElement.setAttribute('data-theme',t);
+  document.documentElement.classList.add('js');
   var m=document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', t==='light'?'#ffffff':'#000000');
 })();
@@ -211,6 +212,8 @@
   .feats-more[hidden]{display:none}
   .tile .ctas{display:flex; flex-direction:column; gap:12px}
   .tile .ctas .pill{width:100%}
+  .tile .ctas-row{display:flex; gap:10px}
+  .tile .ctas-row .pill{width:auto; flex:1; font-size:13.5px; padding:10px 8px; gap:6px; white-space:nowrap}
   .tile-foot{font-size:12px; color:var(--ink-3); margin-top:18px}
   .tile-note{font-size:12px; color:var(--ink-3); margin-top:12px}
   .mirror{font-size:12.5px; color:var(--ink-3); margin-top:10px}
@@ -302,10 +305,25 @@
     .video-grid{grid-template-columns:repeat(3,1fr); gap:18px}
   }
 
-  /* ---------- 更新日志（苹果式时间线） ---------- */
-  .log{padding:96px 0 20px; text-align:center}
-  .log p.log-sub{max-width:560px; margin:14px auto 0; font-size:16px; color:var(--ink-2)}
-  .log-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px; text-align:left; align-items:stretch}
+  /* ---------- 软件区顶部：更新日志入口 ---------- */
+  .apps-head{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 2px 16px}
+  .apps-head .eyebrow{margin:0}
+  .log-trigger{
+    display:none; align-items:center; gap:7px; font-size:13.5px; font-weight:500;
+    color:var(--blue); text-decoration:none; padding:7px 15px; border-radius:999px;
+    border:1px solid var(--hair-2); background:var(--tile-2); white-space:nowrap;
+    transition:background .2s, border-color .2s, transform .2s;
+  }
+  html.js .log-trigger{display:inline-flex}
+  .log-trigger:hover{background:var(--soft); border-color:var(--blue); transform:translateY(-1px)}
+  .log-trigger svg{flex:none}
+  .log-fallback{font-size:13.5px; color:var(--blue)}
+
+  /* ---------- 更新日志（弹窗内的苹果式时间线） ---------- */
+  .log-modal-head{text-align:center; padding:0 10px}
+  .log-modal-head h2{font-size:clamp(25px,3.2vw,34px); font-weight:700; letter-spacing:-.02em; margin-top:10px}
+  .log-modal-head p{max-width:540px; margin:12px auto 0; font-size:14.5px; color:var(--ink-2)}
+  .log-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:34px; text-align:left; align-items:stretch}
   @media (min-width:1100px){ .log-grid{gap:20px} .log-card{padding:32px 34px 28px; border-radius:24px} .log-card h3{font-size:18px} .log-card li{font-size:13px} }
   .log-card{background:var(--tile); border-radius:28px; padding:36px 36px 30px; display:flex; flex-direction:column}
   .log-card h3{font-size:20px; font-weight:700; letter-spacing:-.01em}
@@ -378,6 +396,43 @@
   }
   .modal-x:hover{background:#dcdce1}
 
+  /* ---------- 更新日志弹窗（大面板） ---------- */
+  .modal-shell{position:relative; width:min(1000px,100%)}
+  .modal-panel{
+    position:relative; width:100%; max-height:86vh; overflow-y:auto; overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    background:var(--bg); border:1px solid var(--hair); border-radius:28px;
+    padding:44px 44px 40px; box-shadow:0 40px 90px rgba(0,0,0,.7);
+    animation:pop .34s cubic-bezier(.28,.11,.32,1);
+  }
+  @media (prefers-reduced-motion:reduce){.modal-panel{animation:none}}
+  .modal-panel .log-card{background:var(--tile)}
+  .log-card[hidden]{display:none}
+  /* 从某款软件的「更新日志」进入时：只显示这一款 */
+  #log-modal.single .log-grid{grid-template-columns:1fr; max-width:660px; margin:26px auto 0}
+  .log-card.hl{animation:logHl 1.6s ease}
+  @keyframes logHl{0%{box-shadow:0 0 0 2px var(--blue), var(--screen-shadow)} 100%{box-shadow:0 0 0 0 rgba(41,151,255,0)}}
+  .modal-shell .modal-x{
+    top:-14px; right:-14px; background:rgba(120,120,128,.55); color:#fff;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .modal-shell .modal-x:hover{background:rgba(120,120,128,.82)}
+  @media (max-width:640px){
+    .modal-panel{padding:30px 18px 26px; border-radius:22px; max-height:88vh}
+    .modal-panel .log-grid{grid-template-columns:1fr; gap:12px; margin-top:24px}
+    .modal-panel .log-card{padding:24px 20px 22px; border-radius:20px}
+    .modal-panel .log-card h3{font-size:17px}
+    .modal-panel .log-card .repo{margin-bottom:18px}
+    .log-modal-head h2{font-size:23px}
+    .log-modal-head p{font-size:13.5px}
+    .modal-shell .modal-x{top:-8px; right:-4px}
+  }
+  @media (max-width:480px){
+    .apps-head{gap:10px}
+    .apps-head .eyebrow{font-size:12px}
+    .log-trigger{font-size:12.5px; padding:6px 12px}
+  }
+
   /* ---------- 公众号弹窗 ---------- */
   /* 二维码图（assets/gzh-qr.png）放进站点后自动显示；没有图时显示公众号名占位卡片 */
   #gzh-qr[hidden]{display:none}
@@ -443,7 +498,7 @@
       <img src="assets/logo-icon.webp" alt="" width="28" height="28" style="border-radius:7px"><span>小洪師兄 Studio</span>
     </a>
     <nav class="nav">
-      <a href="#log" class="hide-m">更新日志</a>
+      <a href="#log" class="hide-m" data-log aria-haspopup="dialog" aria-controls="log-modal">更新日志</a>
       <a href="#faq" class="hide-m">常见问题</a>
       <a class="gh" href="https://github.com/gityongzhong" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -475,6 +530,15 @@
 
   <!-- ================= APPS（桌面三列瓷砖） ================= -->
   <section class="apps wrap">
+    <span id="log"></span>
+    <div class="apps-head">
+      <div class="eyebrow">四款软件 · 持续更新</div>
+      <a class="log-trigger" href="#log" data-log aria-haspopup="dialog" aria-controls="log-modal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v4.7l3.1 1.9"/></svg>
+        查看更新日志
+      </a>
+      <noscript><a class="log-fallback" href="https://github.com/gityongzhong" target="_blank" rel="noopener">更新日志见 GitHub →</a></noscript>
+    </div>
     <div class="app-grid">
 
       <!-- ======== WorkAid ======== -->
@@ -499,7 +563,10 @@
         </div>
         <div class="ctas">
           <a class="pill pill-primary" href="https://github.com/gityongzhong/WorkAid/releases/download/v3.1.0/WorkAid_v3.1.0_portable.zip" target="_blank" rel="noopener">下载 · 104 MB</a>
-          <a class="pill pill-ghost" href="https://github.com/gityongzhong/WorkAid" target="_blank" rel="noopener">GitHub 源码仓库</a>
+          <div class="ctas-row">
+            <a class="pill pill-ghost" href="https://github.com/gityongzhong/WorkAid" target="_blank" rel="noopener">GitHub 源码仓库</a>
+            <a class="pill pill-ghost" href="#log" data-log data-log-target="workaid" aria-haspopup="dialog" aria-controls="log-modal">更新日志</a>
+          </div>
         </div>
         <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/WorkAid/releases/download/v3.1.0/WorkAid_v3.1.0_portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/WorkAid/releases/download/v3.1.0/WorkAid_v3.1.0_portable.zip" target="_blank" rel="noopener">通道二</a></p>
         <p class="tile-note">安装方式：解压到任意位置，双击 WorkAid.exe 即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
@@ -528,7 +595,10 @@
         </div>
         <div class="ctas">
           <a class="pill pill-primary" href="https://github.com/gityongzhong/Liugui-Timer/releases/download/v0.7.3/liugui-timer-v0.7.3-portable.zip" target="_blank" rel="noopener">下载 · 151 MB</a>
+            <div class="ctas-row">
             <a class="pill pill-ghost" href="https://github.com/gityongzhong/Liugui-Timer" target="_blank" rel="noopener">GitHub 源码仓库</a>
+            <a class="pill pill-ghost" href="#log" data-log data-log-target="liugui" aria-haspopup="dialog" aria-controls="log-modal">更新日志</a>
+          </div>
           </div>
           <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/Liugui-Timer/releases/download/v0.7.3/liugui-timer-v0.7.3-portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/Liugui-Timer/releases/download/v0.7.3/liugui-timer-v0.7.3-portable.zip" target="_blank" rel="noopener">通道二</a></p>
           <p class="tile-note">安装方式：解压到任意位置，双击「流晷计时器.exe」即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
@@ -557,7 +627,10 @@
         </div>
         <div class="ctas">
           <a class="pill pill-primary" href="https://github.com/gityongzhong/PixTrace/releases/download/v0.6.6/PixTrace-0.6.6-portable.zip" target="_blank" rel="noopener">下载 · 214 MB</a>
-          <a class="pill pill-ghost" href="https://github.com/gityongzhong/PixTrace" target="_blank" rel="noopener">GitHub 源码仓库</a>
+          <div class="ctas-row">
+            <a class="pill pill-ghost" href="https://github.com/gityongzhong/PixTrace" target="_blank" rel="noopener">GitHub 源码仓库</a>
+            <a class="pill pill-ghost" href="#log" data-log data-log-target="pixtrace" aria-haspopup="dialog" aria-controls="log-modal">更新日志</a>
+          </div>
         </div>
         <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/PixTrace/releases/download/v0.6.6/PixTrace-0.6.6-portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/PixTrace/releases/download/v0.6.6/PixTrace-0.6.6-portable.zip" target="_blank" rel="noopener">通道二</a></p>
         <p class="tile-note">安装方式：解压到任意位置，双击 PixTrace.exe 即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
@@ -586,7 +659,10 @@
         </div>
         <div class="ctas">
           <a class="pill pill-primary" href="https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">下载 · 3.7 MB</a>
-          <a class="pill pill-ghost" href="https://github.com/gityongzhong/OFDee" target="_blank" rel="noopener">GitHub 源码仓库</a>
+          <div class="ctas-row">
+            <a class="pill pill-ghost" href="https://github.com/gityongzhong/OFDee" target="_blank" rel="noopener">GitHub 源码仓库</a>
+            <a class="pill pill-ghost" href="#log" data-log data-log-target="ofdee" aria-haspopup="dialog" aria-controls="log-modal">更新日志</a>
+          </div>
         </div>
         <p class="mirror">GitHub 下载慢？备用加速通道：<a href="https://ghproxy.net/https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">通道一</a> · <a href="https://gh-proxy.com/https://github.com/gityongzhong/OFDee/releases/download/v1.2.0/OFDee-v1.2.0-portable.zip" target="_blank" rel="noopener">通道二</a></p>
         <p class="tile-note">安装方式：解压到任意位置，双击 OFDee.exe 即可使用。首次运行如提示“未知发布者”，点「更多信息 → 仍要运行」。</p>
@@ -697,68 +773,6 @@
     <a class="videos-more" href="https://space.bilibili.com/307460554" target="_blank" rel="noopener">去 B 站主页看全部视频 →</a>
   </section>
 
-  <!-- ================= 更新日志 ================= -->
-  <section class="log wrap" id="log">
-    <div class="eyebrow reveal">更新日志</div>
-    <h2 class="big reveal">一直在更新。</h2>
-    <p class="log-sub reveal">每个版本的改动都公开可查，源码与完整记录都在 GitHub 上。</p>
-    <div class="log-grid">
-
-      <!-- WorkAid 更新 -->
-      <article class="log-card reveal">
-        <h3>WorkAid</h3>
-        <p class="repo">文档批处理工具箱</p>
-        <div class="vrow"><span class="ver">v3.1.0</span><span class="vdate">2026.10.05</span></div>
-        <ul>
-          <li>迁移到 Tauri 2，启动就绪从 17 秒缩短到 0.8 秒以内</li>
-          <li>批量转换提速：3 个文件 4.13s → 1.66s</li>
-          <li>修复中文乱码、PPT 转 PDF 崩溃等问题</li>
-        </ul>
-        <a class="log-more" href="https://github.com/gityongzhong/WorkAid/releases" target="_blank" rel="noopener">查看全部版本 →</a>
-      </article>
-
-      <!-- 流晷更新 -->
-      <article class="log-card reveal">
-        <h3>流晷计时器</h3>
-        <p class="repo">免安装会议倒计时</p>
-        <div class="vrow"><span class="ver">v0.7.3</span><span class="vdate">2026.10.05</span></div>
-        <ul>
-          <li>修复窗口在副屏时被拽回主屏的多屏问题</li>
-          <li>新增免安装文件夹版：解压双击即用，启动更快</li>
-          <li>PPT / WPS 放映时自动开始计时</li>
-        </ul>
-        <a class="log-more" href="https://github.com/gityongzhong/Liugui-Timer/blob/main/CHANGELOG.md" target="_blank" rel="noopener">查看完整更新日志 →</a>
-      </article>
-
-      <!-- PixTrace 更新 -->
-      <article class="log-card reveal">
-        <h3>PixTrace</h3>
-        <p class="repo">本地批量抠图去背景</p>
-        <div class="vrow"><span class="ver">v0.6.6</span><span class="vdate">2026.10.31</span></div>
-        <ul>
-          <li>界面全新改版：苹果深色配色、左右分栏，右侧菜单按操作顺序从上到下排布</li>
-          <li>右下角新增 GitHub 与「支持作者」胶囊入口，并修复胶囊底部被裁切的问题</li>
-          <li>抠图功能、算法与模型一律未动：214 MB 免安装便携版，模型内置离线可用</li>
-        </ul>
-        <a class="log-more" href="https://github.com/gityongzhong/PixTrace/releases" target="_blank" rel="noopener">查看全部版本 →</a>
-      </article>
-
-      <!-- OFDee 更新 -->
-      <article class="log-card reveal">
-        <h3>OFDee</h3>
-        <p class="repo">OFD / PDF 桌面阅读器</p>
-        <div class="vrow"><span class="ver">v1.2.0</span><span class="vdate">2026.10.23</span></div>
-        <ul>
-          <li>修复 OFD 字距解析错误导致的整页「丢字」问题</li>
-          <li>新增页面旋转：当前页 / 全部页顺时针 90°，可复位</li>
-          <li>自研 OFD 内核：内嵌字体、印章、表格线按毫米还原</li>
-        </ul>
-        <a class="log-more" href="https://github.com/gityongzhong/OFDee/releases" target="_blank" rel="noopener">查看全部版本 →</a>
-      </article>
-
-    </div>
-  </section>
-
   <!-- ================= FAQ ================= -->
   <section class="faq wrap" id="faq">
     <div class="eyebrow reveal" style="text-align:center">FAQ</div>
@@ -802,6 +816,75 @@
     <p>支持作者-<a href="#" class="donate-link" data-donate>赞赏</a></p>
   </div>
 </footer>
+
+<!-- 更新日志弹窗 -->
+<div class="modal" id="log-modal" hidden role="dialog" aria-modal="true" aria-labelledby="log-modal-title">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-shell">
+    <button class="modal-x" data-close aria-label="关闭更新日志">✕</button>
+    <div class="modal-panel">
+      <div class="log-modal-head">
+        <div class="eyebrow">更新日志</div>
+        <h2 id="log-modal-title">一直在更新。</h2>
+        <p id="log-modal-sub">每个版本的改动都公开可查，源码与完整记录都在 GitHub 上。</p>
+      </div>
+      <div class="log-grid">
+
+      <!-- WorkAid 更新 -->
+      <article class="log-card" data-log-card="workaid">
+        <h3>WorkAid</h3>
+        <p class="repo">文档批处理工具箱</p>
+        <div class="vrow"><span class="ver">v3.1.0</span><span class="vdate">2026.10.05</span></div>
+        <ul>
+          <li>迁移到 Tauri 2，启动就绪从 17 秒缩短到 0.8 秒以内</li>
+          <li>批量转换提速：3 个文件 4.13s → 1.66s</li>
+          <li>修复中文乱码、PPT 转 PDF 崩溃等问题</li>
+        </ul>
+        <a class="log-more" href="https://github.com/gityongzhong/WorkAid/releases" target="_blank" rel="noopener">查看全部版本 →</a>
+      </article>
+
+      <!-- 流晷更新 -->
+      <article class="log-card" data-log-card="liugui">
+        <h3>流晷计时器</h3>
+        <p class="repo">免安装会议倒计时</p>
+        <div class="vrow"><span class="ver">v0.7.3</span><span class="vdate">2026.10.05</span></div>
+        <ul>
+          <li>修复窗口在副屏时被拽回主屏的多屏问题</li>
+          <li>新增免安装文件夹版：解压双击即用，启动更快</li>
+          <li>PPT / WPS 放映时自动开始计时</li>
+        </ul>
+        <a class="log-more" href="https://github.com/gityongzhong/Liugui-Timer/blob/main/CHANGELOG.md" target="_blank" rel="noopener">查看完整更新日志 →</a>
+      </article>
+
+      <!-- PixTrace 更新 -->
+      <article class="log-card" data-log-card="pixtrace">
+        <h3>PixTrace</h3>
+        <p class="repo">本地批量抠图去背景</p>
+        <div class="vrow"><span class="ver">v0.6.6</span><span class="vdate">2026.10.31</span></div>
+        <ul>
+          <li>界面全新改版：苹果深色配色、左右分栏，右侧菜单按操作顺序从上到下排布</li>
+          <li>右下角新增 GitHub 与「支持作者」胶囊入口，并修复胶囊底部被裁切的问题</li>
+          <li>抠图功能、算法与模型一律未动：214 MB 免安装便携版，模型内置离线可用</li>
+        </ul>
+        <a class="log-more" href="https://github.com/gityongzhong/PixTrace/releases" target="_blank" rel="noopener">查看全部版本 →</a>
+      </article>
+
+      <!-- OFDee 更新 -->
+      <article class="log-card" data-log-card="ofdee">
+        <h3>OFDee</h3>
+        <p class="repo">OFD / PDF 桌面阅读器</p>
+        <div class="vrow"><span class="ver">v1.2.0</span><span class="vdate">2026.10.23</span></div>
+        <ul>
+          <li>修复 OFD 字距解析错误导致的整页「丢字」问题</li>
+          <li>新增页面旋转：当前页 / 全部页顺时针 90°，可复位</li>
+          <li>自研 OFD 内核：内嵌字体、印章、表格线按毫米还原</li>
+        </ul>
+        <a class="log-more" href="https://github.com/gityongzhong/OFDee/releases" target="_blank" rel="noopener">查看全部版本 →</a>
+      </article>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- 赞赏弹窗 -->
 <div class="modal" id="donate-modal" hidden role="dialog" aria-modal="true" aria-label="赞赏作者">
@@ -923,6 +1006,29 @@
         m.querySelectorAll('img[data-src]').forEach(function(i){
           i.src=i.getAttribute('data-src'); i.removeAttribute('data-src');
         });
+        /* 更新日志弹窗：从某张软件卡进入时，只显示这一款软件，标题也换成它 */
+        var tid=e.currentTarget.getAttribute('data-log-target');
+        var cards=m.querySelectorAll('[data-log-card]');
+        if(cards.length){
+          var name='';
+          for(var i=0;i<cards.length;i++){
+            var c=cards[i], on=!tid || c.getAttribute('data-log-card')===tid;
+            c.hidden=!on;
+            if(tid&&on){ var h=c.querySelector('h3'); name=h?h.textContent.trim():''; }
+          }
+          m.classList.toggle('single', !!tid);
+          var ttl=m.querySelector('#log-modal-title'), sub=m.querySelector('#log-modal-sub');
+          if(ttl) ttl.textContent = tid ? (name+' · 更新日志') : '一直在更新。';
+          if(sub) sub.textContent = tid
+            ? '每个版本的改动都公开可查，完整记录见 GitHub Releases。'
+            : '每个版本的改动都公开可查，源码与完整记录都在 GitHub 上。';
+          var panel=m.querySelector('.modal-panel');
+          if(panel) panel.scrollTop=0;
+          if(tid){
+            var card=m.querySelector('[data-log-card="'+tid+'"]');
+            if(card){ card.classList.remove('hl'); void card.offsetWidth; card.classList.add('hl'); }
+          }
+        }
       }
       function close(){ m.hidden=true; document.body.style.overflow=''; }
       document.querySelectorAll(sel).forEach(function(el){ el.addEventListener('click', open) });
@@ -931,6 +1037,7 @@
     }
     bind('donate-modal','[data-donate]');
     bind('gzh-modal','[data-gzh]');
+    bind('log-modal','[data-log]');
   })();
 
   /* ---------- 深浅主题切换 ---------- */
