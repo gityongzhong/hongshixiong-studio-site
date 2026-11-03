@@ -354,14 +354,13 @@
   footer .links a{color:var(--nav-ink)}
   footer .links a:hover{color:var(--ink-strong)}
   footer p{margin-bottom:6px}
-  footer .donate-link{color:var(--blue)}
   footer .mail-link{color:var(--blue)}
   footer .mail-link:hover{text-decoration:underline}
   footer .icp{margin-top:8px}
   footer .icp a{color:var(--ink-3)}
   footer .icp a:hover{color:var(--ink-strong)}
 
-  /* ---------- 赞赏弹窗 ---------- */
+  /* ---------- 弹窗基础样式（公众号 / 更新日志共用） ---------- */
   .modal{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:24px}
   .modal[hidden]{display:none}
   .modal-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.74); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
@@ -787,7 +786,6 @@
     <p>Copyright © 2026 小洪師兄 Studio. 保留所有权利。</p>
     <p class="icp"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">滇ICP备2026022099号-1</a></p>
     <p>联系我：<a href="mailto:hongyongzhong2020@126.com" class="mail-link">hongyongzhong2020@126.com</a></p>
-    <p>支持作者-<a href="#" class="donate-link" data-donate>赞赏</a></p>
   </div>
 </footer>
 
@@ -857,17 +855,6 @@
       </article>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- 赞赏弹窗 -->
-<div class="modal" id="donate-modal" hidden role="dialog" aria-modal="true" aria-label="赞赏作者">
-  <div class="modal-backdrop" data-close></div>
-  <div class="modal-card">
-    <button class="modal-x" data-close aria-label="关闭">✕</button>
-    <img data-src="assets/donate-qr.webp" alt="微信赞赏码">
-    <p class="m-title">请作者喝杯咖啡 ☕</p>
-    <p class="m-sub">微信扫一扫赞赏 · 金额随意，心意最重要</p>
   </div>
 </div>
 
@@ -969,7 +956,7 @@
     else window.addEventListener('load',function(){ setTimeout(run,1200) });
   })();
 
-  /* ---------- 弹窗（赞赏 / 微信公众号） ---------- */
+  /* ---------- 弹窗（微信公众号 / 更新日志） ---------- */
   (function(){
     function bind(id, sel){
       var m=document.getElementById(id);
@@ -1009,7 +996,6 @@
       m.addEventListener('click', function(e){ if(e.target.closest('[data-close]')) close() });
       document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&!m.hidden) close() });
     }
-    bind('donate-modal','[data-donate]');
     bind('gzh-modal','[data-gzh]');
     bind('log-modal','[data-log]');
   })();
